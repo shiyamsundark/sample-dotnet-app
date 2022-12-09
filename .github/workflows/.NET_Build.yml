@@ -23,11 +23,9 @@ jobs:
       
     - name: Package creation
       run: |
-           cd ./bin/Debug/netcoreapp2.2/
-           ls
-
-    
-            
+           mkdir sample_test
+           mv ./bin/Debug/netcoreapp2.2/* ./sample_test
+                    
     - name: Upload a Build Artfifact
       uses: actions/upload-artifact@v2
       with:
