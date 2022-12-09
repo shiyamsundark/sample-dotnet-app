@@ -41,7 +41,7 @@ jobs:
   Upload_Artifact_GitHub_Release:
          
        runs-on: ubuntu-latest
-       needs: [Build]
+       needs: [Build,sonar]
        permissions:
           contents: write
           packages: write
@@ -76,7 +76,7 @@ jobs:
            with:
               upload_url: ${{ steps.create_release.outputs.upload_url }}
               asset_path: ./test.zip
-              asset_name: sample_test
+              asset_name: sample_test.zip
               asset_content_type: application/zip
      
 #   upload:
