@@ -52,19 +52,16 @@ jobs:
       - name: Build
         run: dotnet build
         
-      - name: Test and generate coverage data
-        run: dotnet dotcover test
-        
       - name: Sonar analysis end
         run: .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="9dca62d99a455e9dbbbd7fc25ed0e154905c8828"
         
-      - name: Sonar Quality Gate
-        continue-on-error: true
-        id: sonar-quality-gate
-        uses: sonarsource/sonarqube-quality-gate-action@master
-        timeout-minutes: 5
-        with:
-          scanMetadataReportFile: .sonarqube/out/.sonar/report-task.txt
-        env:
-         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-         SONAR_HOST_URL: ${{ env.SONAR_HOST_URL }}      
+#       - name: Sonar Quality Gate
+#         continue-on-error: true
+#         id: sonar-quality-gate
+#         uses: sonarsource/sonarqube-quality-gate-action@master
+#         timeout-minutes: 5
+#         with:
+#           scanMetadataReportFile: .sonarqube/out/.sonar/report-task.txt
+#         env:
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#          SONAR_HOST_URL: ${{ env.SONAR_HOST_URL }}      
