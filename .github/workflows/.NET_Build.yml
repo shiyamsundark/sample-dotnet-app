@@ -23,11 +23,10 @@ jobs:
       
     - name: Package creation
       run: |
-            New-Item -type Directory -path ./sample_test
-            DIR ./sample-dotnet-app/sample-dotnet-app/bin/Debug/netcoreapp2.2
-            Copy-Item -Path ./sample-dotnet-app/sample-dotnet-app/bin/Debug/netcoreapp2.2/* -Destination ./sample_test -Recurse
-            DIR ./sample_test
-            7z a sample_test.zip ./sample_test
+           cd ./bin/Debug/netcoreapp2.2/
+           ls
+
+    
             
     - name: Upload a Build Artfifact
       uses: actions/upload-artifact@v2
