@@ -21,6 +21,11 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
       
+    - name: .NET Publish
+      run: dotnet publish
+      
+    
+      
   sonar:
       name: Sonar Analysis
       needs: Build
