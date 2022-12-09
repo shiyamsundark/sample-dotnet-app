@@ -21,12 +21,22 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
       
-    - name: .NET Publish
-      run: dotnet publish
+    - name: Package creation
+      run: |
+            New-Item -type Directory -path ./sample_test
+            DIR ./sample-dotnet-app/sample-dotnet-app/bin/Debug/netcoreapp2.2
+            Copy-Item -Path ./sample-dotnet-app/sample-dotnet-app/bin/Debug/netcoreapp2.2/* -Destination ./sample_test -Recurse
+            DIR ./sample_test
+            7z a sample_test.zip ./sample_test
+            
+    - name: Upload a Build Artfifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: sample_test
+        path: ./sample_test
+        retention-days: 1
       
-    
-      
-  sonar:
-      name: Sonar Analysis
-      needs: Build
-      uses: ./.github/workflows/sonar.yml
+#  sonar:
+#      name: Sonar Analysis
+#      needs: Build
+#      uses: ./.github/workflows/sonar.yml
