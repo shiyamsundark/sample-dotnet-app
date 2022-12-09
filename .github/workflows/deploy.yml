@@ -1,0 +1,16 @@
+name: Deploy
+
+on:
+ workflow_call:
+
+permissions:
+  contents: write
+
+jobs:
+  Deploy_STG:
+    runs-on: ubuntu-latest
+
+    steps:
+       
+     - name: Run a one-line script
+       run: echo Hello, world!
