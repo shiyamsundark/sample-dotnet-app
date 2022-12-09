@@ -40,4 +40,4 @@ jobs:
   STG_Deploy:
       needs: [Build,STG_Deploy_Approval_IT_Team,STG_Deploy_Approval_Devops_Team]
       name: Deployment
-      run: echo "Deployment Done"
+      uses: ./.github/workflows/deploy.yml
