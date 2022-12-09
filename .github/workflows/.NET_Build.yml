@@ -38,6 +38,47 @@ jobs:
      needs: Build
      uses: ./.github/workflows/sonar.yml
      
+  Upload_Artifact_GitHub_Release:
+         
+       runs-on: ubuntu-latest
+       needs: [Build,sonar]
+       permissions:
+          contents: write
+          packages: write
+       
+       steps:
+       
+         - uses: actions/checkout@v3   
+         
+         - run: mkdir test
+         
+         - name: Dowload a Build Artfifact
+           uses: actions/download-artifact@v2
+           with:
+             name: sample_test
+             path: ./test
+             
+         - run : 7z a test.zip ./test
+         
+         - name: Create Github Release
+           id: create_release
+           uses: actions/create-release@v1
+           env:
+             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+           with:
+             tag_name: test
+             release_name: sample-test
+             
+         - name: Upload Artifacts to Github Release
+           uses: actions/upload-release-asset@v1
+           env:
+             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+           with:
+              upload_url: ${{ steps.create_release.outputs.upload_url }}
+              asset_path: ./test.zip
+              asset_name: sample_test
+              asset_content_type: application/zip
+     
 #   upload:
 #     runs-on: windows-latest
 #     needs: [Build,sonar]
