@@ -33,10 +33,10 @@ jobs:
         path: ./sample_test
         retention-days: 1
       
-#   sonar:
-#      name: Sonar Analysis
-#      needs: Build
-#      uses: ./.github/workflows/sonar.yml
+  sonar:
+     name: Sonar Analysis
+     needs: Build
+     uses: ./.github/workflows/sonar.yml
      
   Upload_Artifact_GitHub_Release:
          
