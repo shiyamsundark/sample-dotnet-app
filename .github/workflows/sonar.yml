@@ -19,41 +19,41 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Cache SonarCloud packages
-        uses: actions/cache@v1
-        with:
-          path: ~\sonar\cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-      - name: Cache SonarCloud scanner
-        id: cache-sonar-scanner
-        uses: actions/cache@v1
-        with:
-          path: .\.sonar\scanner
-          key: ${{ runner.os }}-sonar-scanner
-          restore-keys: ${{ runner.os }}-sonar-scanner
-      - name: Install SonarCloud scanner
-        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
-        shell: powershell
-        run: |
-          New-Item -Path .\.sonar\scanner -ItemType Directory
-          dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+#       - name: Cache SonarCloud packages
+#         uses: actions/cache@v1
+#         with:
+#           path: ~\sonar\cache
+#           key: ${{ runner.os }}-sonar
+#           restore-keys: ${{ runner.os }}-sonar
+#       - name: Cache SonarCloud scanner
+#         id: cache-sonar-scanner
+#         uses: actions/cache@v1
+#         with:
+#           path: .\.sonar\scanner
+#           key: ${{ runner.os }}-sonar-scanner
+#           restore-keys: ${{ runner.os }}-sonar-scanner
+#       - name: Install SonarCloud scanner
+#         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+#         shell: powershell
+#         run: |
+#           New-Item -Path .\.sonar\scanner -ItemType Directory
+#           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
         
       - name: Install dotCover
         run: dotnet tool install --global JetBrains.dotCover.GlobalTool   
         
-      - name: Sonar analysis start
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        shell: powershell
-        run:  .\.sonar\scanner\dotnet-sonarscanner begin /k:"shiyamsundark_sample-dotnet-app" /o:"shiyamsundark" /d:sonar.login="9dca62d99a455e9dbbbd7fc25ed0e154905c8828" /d:sonar.host.url="https://sonarcloud.io"
+#       - name: Sonar analysis start
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+#           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#         shell: powershell
+#         run:  .\.sonar\scanner\dotnet-sonarscanner begin /k:"shiyamsundark_sample-dotnet-app" /o:"shiyamsundark" /d:sonar.login="9dca62d99a455e9dbbbd7fc25ed0e154905c8828" /d:sonar.host.url="https://sonarcloud.io"
           
-      - name: Build
-        run: dotnet build
+#       - name: Build
+#         run: dotnet build
         
-      - name: Sonar analysis end
-        run: .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="9dca62d99a455e9dbbbd7fc25ed0e154905c8828"
+#       - name: Sonar analysis end
+#         run: .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="9dca62d99a455e9dbbbd7fc25ed0e154905c8828"
         
 #       - name: Sonar Quality Gate
 #         continue-on-error: true
