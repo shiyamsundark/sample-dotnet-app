@@ -22,10 +22,7 @@ jobs:
           if: failure()
           run: |
               echo "::error::Cancelling workflow due to one of the jobs failing."
-              gh api \
-              --method POST \
-              -H "Accept: application/vnd.github+json" \
-              /repos/shiyamsundark/shiyamsundark/actions/runs/${{ github.run_id }}/cancel
+              gh run cancel ${{ github.run_id }}
           env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
