@@ -16,7 +16,7 @@ jobs:
           id: versionid
           run: | 
                  echo "Set Release Version"
-                 exit 1
+                 echo  ${{ github.run_id }}
 
         - name: Cancel Workflow     
           if: failure()
