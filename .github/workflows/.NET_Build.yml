@@ -6,7 +6,7 @@ on:
 permissions:
   contents: write
   packages: write
-  actions: write
+  actions: read
   id-token: write
   
 jobs:
