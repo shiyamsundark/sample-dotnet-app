@@ -12,7 +12,7 @@ jobs:
       with:
         server_address: smtp.gmail.com
         server_port: 587
-        username: githubtestinfy@gmail.com
+        username: githubtestinfy
         password: ${{ secrets.EMAILPASSWORD }}
         subject: Github Actions job result
         to: shiyamsundarsundar5796@gmail.com
