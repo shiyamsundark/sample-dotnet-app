@@ -3,19 +3,22 @@ on:
   workflow_dispatch:
 
 jobs:
-   
+ Send-mail:
+   runs-on: ubuntu-latest
+   steps:
+    - uses: actions/checkout@v3
 
-  - name: Send mail
-    uses: dawidd6/action-send-mail@v3
-    with:
-      server_address: smtp.office365.com
-      server_port: 587
-      username: 
-      password: 
-      subject: Github Actions job result
-      to:
-      from:
-      body: "Build job of ${{github.repository}} completed successfully!"
+    - name: Send mail
+      uses: dawidd6/action-send-mail@v3
+      with:
+        server_address: smtp.office365.com
+        server_port: 587
+        username: shiyamsundar.k@infosys.com
+        password: ${{ secrets.EMAILPASSWORD }}
+        subject: Github Actions job result
+        to: athulya.s01@infosys.com
+        from: shiyamsundar.k@infosys.com
+        body: "Build job of ${{github.repository}} completed successfully!"
  
 
 
