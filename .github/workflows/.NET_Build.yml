@@ -16,7 +16,7 @@ jobs:
     steps:
     - name: Build
       run: |
-           echo "dotnet build"
+           echo "dotnet build-test"
       
     - name: sonar
       run: |
