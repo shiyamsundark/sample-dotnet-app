@@ -16,7 +16,7 @@ jobs:
     steps:
     - name: Build
       run: |
-           echo "dotnet build --no-restore"
+           echo "dotnet build"
       
     - name: sonar
       run: |
