@@ -13,11 +13,18 @@ permissions:
   actions: read
   id-token: write
   
-run-name: Build from ${{ github.ref_name }} 
+run-name: Build from ${{ github.ref_name }} with Sonar and Fortify
 
 jobs:
-
+  if_PR_merged:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo The PR was merged
+        
   Build:
+    needs: if_PR_merged
     runs-on: ubuntu-latest
     steps:
     - name: Build
