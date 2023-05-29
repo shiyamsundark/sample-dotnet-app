@@ -13,6 +13,8 @@ permissions:
   actions: read
   id-token: write
   
+run-name: Build from ${{ github.ref_name }} 
+
 jobs:
 
   Build:
