@@ -8,3 +8,7 @@ AB#
 - [ ] I have performed a self-review of my code
 - [ ] Unit Review
 - [ ] Functionality Review
+
+## Automated Build and Deploy
+- [ ] Yes
+- [ ] No

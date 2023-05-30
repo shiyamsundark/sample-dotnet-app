@@ -1,6 +1,10 @@
 name: .NET Build
 
 on:
+  pull_request:
+    types: [closed]
+    branches:   
+      - Feature1
   workflow_dispatch:
 
 permissions:
@@ -9,9 +13,27 @@ permissions:
   actions: read
   id-token: write
   
-jobs:
+run-name: Build from ${{ github.ref_name }} with Sonar and Fortify
 
+jobs:
+  if_PR_merged:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    outputs:
+      Sonar: ${{ steps.pr_merge.outputs.Sonar }}
+      Fortify: ${{ steps.pr_merge.outputs.Fortify }}
+    steps:
+    - name: PR_Check
+      id: pr_merge
+      run: |
+          Sonar="true"
+          Fortify="true"
+          echo "The PR was merged.. Triggering the Build"
+          echo "Sonar=$Sonar" >> $GITHUB_OUTPUT
+          echo "Fortify=$Fortify" >> $GITHUB_OUTPUT
+        
   Build:
+    needs: if_PR_merged
     runs-on: ubuntu-latest
     steps:
     - name: Build
@@ -19,6 +41,7 @@ jobs:
            echo "dotnet build-test"
       
     - name: sonar
+      if: ${{ needs.if_PR_merged.outputs.Sonar == 'true' }}
       run: |
            echo Sonar-test
   Fortify:
