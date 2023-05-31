@@ -47,7 +47,7 @@ jobs:
     needs: if_PR_merged
     runs-on: ubuntu-latest
     steps:
-    - name: Build
+    - name: Build-test
       run: |
            echo "dotnet build-test"
            exit 0
@@ -55,8 +55,7 @@ jobs:
     - name: sonar
       if: ${{ needs.if_PR_merged.outputs.Sonar == 'true' }}
       run: |
-           echo Sonar
-           
+           echo Sonar-test
   Fortify:
     runs-on: ubuntu-latest
     needs: [Build]
