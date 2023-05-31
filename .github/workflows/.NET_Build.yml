@@ -51,18 +51,22 @@ jobs:
               PR_Number=${{ github.event.pull_request.number }}
               gh pr view $PR_Number >> Buildflag.txt
               cat Buildflag.txt
-              if grep "- [x] Yes" Buildflag.txt; then
-                 echo "The build value has been marked as Yes"
-              else
-                echo "The build value has not been marked as Yes"
-              fi 
-              if  awk '/^\[-\] \[x\] Yes/ { found =1; exit } END { exit !found }' "$Output_File"; then
-                 echo "The build value has been marked as Yes"
-              else
-                echo "The build value has not been marked as Yes" 
-              fi
+              Flag=$(grep "- [x] Yes" Buildflag.txt)
+              echo "BuildFlag: $Falg"
+              
+#               if grep "- [x] Yes" Buildflag.txt; then
+#                  echo "The build value has been marked as Yes"
+#               else
+#                 echo "The build value has not been marked as Yes"
+#               fi 
+#               if  awk '/^\[-\] \[x\] Yes/ { found =1; exit } END { exit !found }' "$Output_File"; then
+#                  echo "The build value has been marked as Yes"
+#               else
+#                 echo "The build value has not been marked as Yes" 
+#               fi
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
           
 #   Build:
 #     needs: if_PR_merged
