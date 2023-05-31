@@ -50,14 +50,13 @@ jobs:
         run: |
               PR_Number=${{ github.event.pull_request.number }}
               gh pr view $PR_Number >> Buildflag.txt
-              File="./
               cat Buildflag.txt
               Build_Flag="- [x] Yes"
               String=$(echo "$Build_Flag" | sed 's/^- \[x\] Yes //')
               echo "StringValue:$String"
               Flag=$(grep 'Yes' Buildflag.txt)
               echo "BuildFlag: $Flag"
-              if [[ $Flag == $Build_Flag ]]; then
+              if [[ $Flag == $String ]]; then
                  echo "The build value has been marked as Yes"
               else
                  echo "The build value has not been marked as Yes"
