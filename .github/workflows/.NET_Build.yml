@@ -44,11 +44,11 @@ jobs:
 #           echo "Sonar=$Sonar" >> $GITHUB_OUTPUT
 #           echo "Fortify=$Fortify" >> $GITHUB_OUTPUT
       
-      - name: PR_Check_Status
+      - name: PR_Check
         id: pr_merge
         run: |
               PR_Number=${{ github.event.pull_request.number }}
-              gh pr view $PR_NUMBER
+              gh pr view $PR_Number
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
