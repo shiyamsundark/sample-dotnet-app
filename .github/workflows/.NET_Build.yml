@@ -56,7 +56,7 @@ jobs:
               echo "StringValue:$Stringv1"
               Flag=$(grep 'x' Buildflag.txt)
               Stringv2=$(echo "$Flag" | sed 's/^- \[x\] Yes //')
-              echo "BuildFlag: $Stringv2"
+              echo "BuildFlag: $Flag"
               if [ "$Stringv1" == "$Stringv2" ]; then
                  echo "The build value has been marked"
               else
