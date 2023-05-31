@@ -17,7 +17,6 @@ run-name: Build from ${{ github.ref_name }} with Sonar and Fortify
 
 jobs:
   if_PR_merged:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     outputs:
       Sonar: ${{ steps.pr_merge.outputs.Sonar }}
@@ -39,6 +38,7 @@ jobs:
     - name: Build
       run: |
            echo "dotnet build-test"
+           exit 0
       
     - name: sonar
       if: ${{ needs.if_PR_merged.outputs.Sonar == 'true' }}
