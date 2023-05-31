@@ -49,7 +49,9 @@ jobs:
         run: |
               PR_Number=${{ github.event.pull_request.number }}
               gh pr view $PR_NUMBER
-
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
 #   Build:
 #     needs: if_PR_merged
 #     runs-on: ubuntu-latest
