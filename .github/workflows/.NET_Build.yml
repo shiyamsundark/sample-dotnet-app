@@ -52,7 +52,7 @@ jobs:
               gh pr view $PR_Number >> Buildflag.txt
               cat Buildflag.txt
               Flag=$(grep -w "- [x] Yes" Buildflag.txt)
-              echo "BuildFlag: $Falg"
+              echo "BuildFlag: $Flag"
               
 #               if grep "- [x] Yes" Buildflag.txt; then
 #                  echo "The build value has been marked as Yes"
