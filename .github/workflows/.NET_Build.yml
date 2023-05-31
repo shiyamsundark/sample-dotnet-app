@@ -53,6 +53,11 @@ jobs:
               cat Buildflag.txt
               Flag=$(grep 'Yes' Buildflag.txt)
               echo "BuildFlag: $Flag"
+              if [[ $Flag == "- [x] Yes" ]]; then
+                 echo "The build value has been marked as Yes"
+               else
+                 echo "The build value has not been marked as Yes"
+               fi 
               
 #               if grep "- [x] Yes" Buildflag.txt; then
 #                  echo "The build value has been marked as Yes"
