@@ -52,7 +52,7 @@ jobs:
               gh pr view $PR_Number >> Buildflag.txt
               Template_File="./Buildflag.txt"
               cat $Template_File
-              if grep -qE '^\[-\]\s*\[x\]\s*Yes' "$Template_File"; then - [x] Yes
+              if grep -qE '^\[-\]\s*\[x\]\s*Yes' "$Template_File"; then
                  echo "The build value has been marked as Yes"
               else
                 echo "The build value has not been marked as Yes"
@@ -73,6 +73,21 @@ jobs:
 #       run: |
 #            echo "dotnet build-test"
 #            exit 0
+#              PR_Number=${{ github.event.pull_request.number }}
+#               Output_File="Buildflag.txt"
+#               Target_Value="- \[x\] Yes"
+#               gh pr view $PR_Number >> $Output_File
+#               cat $Output_File
+#               if grep -qE "$Target_Value" "$Output_File"; then
+#                  echo "The build value has been marked as Yes"
+#               else
+#                 echo "The build value has not been marked as Yes"
+#               fi 
+#               if  awk '/^\[-\] \[x\] Yes/ { found =1; exit } END { exit !found }' "$Output_File"; then
+#                  echo "The build value has been marked as Yes"
+#               else
+#                 echo "The build value has not been marked as Yes" 
+#               fi
       
 #     - name: sonar
 #       if: ${{ needs.if_PR_merged.outputs.Sonar == 'true' }}
