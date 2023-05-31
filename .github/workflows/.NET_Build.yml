@@ -52,7 +52,7 @@ jobs:
               gh pr view $PR_Number >> Buildflag.txt
               cat Buildflag.txt
               Build_Flag="- [x] Yes"
-              String=$(echo "$Build_Flag" | sed 's/^- \[x\] Yes //')
+              String=$(echo "$Build_Flag" | sed 's/^- \[x\] Yes/ - \[x\] Yes/')
               echo "StringValue:$String"
               Flag=$(grep 'Yes' Buildflag.txt)
               echo "BuildFlag: $Flag"
