@@ -51,7 +51,7 @@ jobs:
               PR_Number=${{ github.event.pull_request.number }}
               gh pr view $PR_Number >> Buildflag.txt
               cat Buildflag.txt
-              Flag=$(grep -w "- [x] Yes" Buildflag.txt)
+              Flag=$(grep -w '- [x] Yes' Buildflag.txt)
               echo "BuildFlag: $Flag"
               
 #               if grep "- [x] Yes" Buildflag.txt; then
