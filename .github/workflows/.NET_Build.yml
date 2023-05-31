@@ -50,10 +50,9 @@ jobs:
         run: |
               PR_Number=${{ github.event.pull_request.number }}
               gh pr view $PR_Number >> Buildflag.cfg
-              Templateoutput="./Buildflag.cfg"
+              Template_File="./Buildflag.cfg"
               cat $Templateoutput
-              Build_Flag="[x] Yes"
-              if grep -q "^$Build_Flag$" "$Templateoutput"; then
+              if grep -qE '^\[-\]\s*\[x\]\s*Yes' "$Template_File"; then
                  echo "The build value has been marked as Yes"
               else
                 echo "The build value has not been marked as Yes"
