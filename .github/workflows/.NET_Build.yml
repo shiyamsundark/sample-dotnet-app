@@ -57,7 +57,7 @@ jobs:
               Flag=$(grep 'Yes' Buildflag.txt)
               Stringv2=$(echo "$Flag" | sed 's/^- \[x\] Yes //')
               echo "BuildFlag: $Stringv2"
-              if [[ $Stringv1 == $Stringv2 ]]; then
+              if [ "$Stringv1" == "$Stringv2" ]; then
                  echo "The build value has been marked"
               else
                  echo "Build value has not been marked"
