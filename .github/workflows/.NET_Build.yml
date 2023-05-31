@@ -54,7 +54,7 @@ jobs:
               Build_Flag="- [x] Yes"
               Stringv1=$(echo "$Build_Flag" | sed 's/^- \[x\] Yes/ - \[x\] Yes/')
               echo "StringValue:$Stringv1"
-              Flag=$(grep 'Yes' Buildflag.txt)
+              Flag=$(grep 'x' Buildflag.txt)
               Stringv2=$(echo "$Flag" | sed 's/^- \[x\] Yes //')
               echo "BuildFlag: $Stringv2"
               if [ "$Stringv1" == "$Stringv2" ]; then
