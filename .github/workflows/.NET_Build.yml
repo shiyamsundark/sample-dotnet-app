@@ -51,12 +51,22 @@ jobs:
               PR_Number=${{ github.event.pull_request.number }}
               gh pr view $PR_Number >> Buildflag.cfg
               Template_File="./Buildflag.cfg"
-              cat $Templateoutput
-              if grep -qE '^\[-\]\s*\[x\]\s*Yes' "$Template_File"; then
+              cat $Template_File
+              if grep -qE '^\[-\]\s*\[x\]\s*Yes' "$Template_File"; then - [x] Yes
                  echo "The build value has been marked as Yes"
               else
                 echo "The build value has not been marked as Yes"
-              fi  
+              fi 
+              if grep -qE '^\[-\]\s*\[x\]\s*Yes' "$(cat ./Buildflag.cfg)"; then
+                 echo "The build value has been marked as Yes"
+              else
+                echo "The build value has not been marked as Yes" 
+              fi
+              if  awk '/^\[-\] \[x\] Yes/ { found =1; exit } END { exit !found }' "$Template_File"; then
+                 echo "The build value has been marked as Yes"
+              else
+                echo "The build value has not been marked as Yes" 
+              fi          
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
