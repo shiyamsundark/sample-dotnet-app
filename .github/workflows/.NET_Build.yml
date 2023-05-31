@@ -25,6 +25,18 @@ jobs:
     - name: PR_Check
       id: pr_merge
       run: |
+          if [[ ${{ github.event.pull_request.merged }} == 'true' ]]; then
+            PR_Number=${{ github.event.pull_request.number }}
+            PR_Template_Content=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+                                  "https://api.github.com/repos/${{ github.repository }}/pulls/$PR_Number/files" | \
+                                   jq -r '.[] | select(.filename | contains("pull_request_template.md")) | .patch')
+            if echo "$PR_Template_Content" | grep -q "\[-\] *\\[x\\] *Yes"; then
+               echo "PR template Build template is checked with value Yes"
+            else
+               echo "PR template Build template is not checked with value Yes"
+          else 
+            echo "skipping"
+          fi  
           Sonar="true"
           Fortify="true"
           echo "The PR was merged.. Triggering the Build"
