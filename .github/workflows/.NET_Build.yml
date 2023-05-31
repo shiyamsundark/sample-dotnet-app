@@ -49,11 +49,9 @@ jobs:
         id: pr_merge
         run: |
               PR_Number=${{ github.event.pull_request.number }}
-              Output_File="Buildflag.txt"
-              Target_Value="- \[x\] Yes"
-              gh pr view $PR_Number >> $Output_File
-              cat $Output_File
-              if grep -q "$Target_Value" $Output_File; then
+              gh pr view $PR_Number >> Buildflag.txt
+              cat Buildflag.txt
+              if grep "- [x] Yes" Buildflag.txt; then
                  echo "The build value has been marked as Yes"
               else
                 echo "The build value has not been marked as Yes"
