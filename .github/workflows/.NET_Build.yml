@@ -34,6 +34,7 @@ jobs:
                echo "PR template Build template is checked with value Yes"
             else
                echo "PR template Build template is not checked with value Yes"
+            fi   
           else 
             echo "skipping"
           fi  
