@@ -17,44 +17,65 @@ run-name: Build from ${{ github.ref_name }} with Sonar and Fortify
 
 jobs:
   if_PR_merged:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     outputs:
       Sonar: ${{ steps.pr_merge.outputs.Sonar }}
       Fortify: ${{ steps.pr_merge.outputs.Fortify }}
     steps:
-    - name: PR_Check
-      id: pr_merge
-      run: |
-          Sonar="true"
-          Fortify="true"
-          echo "The PR was merged.. Triggering the Build"
-          echo "Sonar=$Sonar" >> $GITHUB_OUTPUT
-          echo "Fortify=$Fortify" >> $GITHUB_OUTPUT
-        
-  Build:
-    needs: if_PR_merged
-    runs-on: ubuntu-latest
-    steps:
-    - name: Build-test
-      run: |
-           echo "dotnet build-test"
+#     - name: PR_Check
+#       id: pr_merge
+#       run: |
+#           if [[ ${{ github.event.pull_request.merged }} == 'true' ]]; then
+#             PR_Number=${{ github.event.pull_request.number }}
+#             PR_Template_Content=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+#                                   "https://api.github.com/repos/${{ github.repository }}/pulls/$PR_Number/files" | \
+#                                    jq -r '.[] | select(.filename | contains("pull_request_template.md")) | .patch')
+#             if echo "$PR_Template_Content" | grep -q "\[-\] *\\[x\\] *Yes"; then
+#                echo "PR template Build template is checked with value Yes"
+#             else
+#                echo "PR template Build template is not checked with value Yes"
+#             fi   
+#           else 
+#             echo "skipping"
+#           fi  
+#           Sonar="true"
+#           Fortify="true"
+#           echo "The PR was merged.. Triggering the Build"
+#           echo "Sonar=$Sonar" >> $GITHUB_OUTPUT
+#           echo "Fortify=$Fortify" >> $GITHUB_OUTPUT
       
-    - name: sonar
-      if: ${{ needs.if_PR_merged.outputs.Sonar == 'true' }}
-      run: |
-           echo Sonar-test
-  Fortify:
-    runs-on: ubuntu-latest
-    needs: [Build]
-    steps:
-    - name: Fortify
-      run: |
-           echo "Fortify-test"
+      - name: PR_Check_Status
+        id: pr_merge
+        run: |
+              PR_Number=${{ github.event.pull_request.number }}
+              gh pr view $PR_NUMBER
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+#   Build:
+#     needs: if_PR_merged
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Build
+#       run: |
+#            echo "dotnet build-test"
+#            exit 0
+      
+#     - name: sonar
+#       if: ${{ needs.if_PR_merged.outputs.Sonar == 'true' }}
+#       run: |
+#            echo Sonar-test
+#   Fortify:
+#     runs-on: ubuntu-latest
+#     needs: [Build]
+#     steps:
+#     - name: Fortify
+#       run: |
+#            echo "Fortify-test"
     
      
-  Upload_Artifact_GitHub_Release:         
-       runs-on: ubuntu-latest
-       needs: [Build,Fortify]  
-       steps:
-         - run: echo test
+#   Upload_Artifact_GitHub_Release:         
+#        runs-on: ubuntu-latest
+#        needs: [Build,Fortify]  
+#        steps:
+#          - run: echo test
