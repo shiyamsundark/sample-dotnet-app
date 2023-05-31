@@ -50,30 +50,30 @@ jobs:
               PR_Number=${{ github.event.pull_request.number }}
               gh pr view $PR_NUMBER
 
-  Build:
-    needs: if_PR_merged
-    runs-on: ubuntu-latest
-    steps:
-    - name: Build
-      run: |
-           echo "dotnet build-test"
-           exit 0
+#   Build:
+#     needs: if_PR_merged
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Build
+#       run: |
+#            echo "dotnet build-test"
+#            exit 0
       
-    - name: sonar
-      if: ${{ needs.if_PR_merged.outputs.Sonar == 'true' }}
-      run: |
-           echo Sonar-test
-  Fortify:
-    runs-on: ubuntu-latest
-    needs: [Build]
-    steps:
-    - name: Fortify
-      run: |
-           echo "Fortify-test"
+#     - name: sonar
+#       if: ${{ needs.if_PR_merged.outputs.Sonar == 'true' }}
+#       run: |
+#            echo Sonar-test
+#   Fortify:
+#     runs-on: ubuntu-latest
+#     needs: [Build]
+#     steps:
+#     - name: Fortify
+#       run: |
+#            echo "Fortify-test"
     
      
-  Upload_Artifact_GitHub_Release:         
-       runs-on: ubuntu-latest
-       needs: [Build,Fortify]  
-       steps:
-         - run: echo test
+#   Upload_Artifact_GitHub_Release:         
+#        runs-on: ubuntu-latest
+#        needs: [Build,Fortify]  
+#        steps:
+#          - run: echo test
