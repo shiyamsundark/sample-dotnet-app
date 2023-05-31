@@ -48,7 +48,7 @@ jobs:
         id: pr_merge
         run: |
               PR_Number=${{ github.event.pull_request.number }}
-              gh pr view $PR_NUMBER
+              gh pr view $PR_Number
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
