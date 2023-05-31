@@ -51,9 +51,10 @@ jobs:
               PR_Number=${{ github.event.pull_request.number }}
               gh pr view $PR_Number >> Buildflag.txt
               cat Buildflag.txt
+              Build_Flag="- [x] Yes"
               Flag=$(grep 'Yes' Buildflag.txt)
               echo "BuildFlag: $Flag"
-              if [[ $Flag == "- [x] Yes" ]]; then
+              if [[ $Flag == $Build_Flag]]; then
                  echo "The build value has been marked as Yes"
                else
                  echo "The build value has not been marked as Yes"
