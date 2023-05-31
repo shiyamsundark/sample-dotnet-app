@@ -45,7 +45,7 @@ jobs:
 #           echo "Fortify=$Fortify" >> $GITHUB_OUTPUT
       - uses: actions/checkout@v3 
       
-      - name: PR_Check
+      - name: PR_Check_test
         id: pr_merge
         run: |
               PR_Number=${{ github.event.pull_request.number }}
