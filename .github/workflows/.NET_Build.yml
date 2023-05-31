@@ -54,9 +54,9 @@ jobs:
               Build_Flag="- [x] Yes"
               Flag=$(grep 'Yes' Buildflag.txt)
               echo "BuildFlag: $Flag"
-              if [[ $Flag == $Build_Flag]]; then
+              if [[ $Flag == $Build_Flag ]]; then
                  echo "The build value has been marked as Yes"
-               else
+              else
                  echo "The build value has not been marked as Yes"
                fi 
               
