@@ -49,15 +49,16 @@ jobs:
         id: pr_merge
         run: |
               PR_Number=${{ github.event.pull_request.number }}
-              gh pr view $PR_Number >> Buildflag.txt
-              Template_File="./Buildflag.txt"
-              cat $Template_File
-              if grep -qE '^\[-\]\s*\[x\]\s*Yes' "$Template_File"; then - [x] Yes
+              Output_File="Buildflag.txt"
+              Target_Value="- \[x\] Yes"
+              gh pr view $PR_Number >> $Output_File
+              cat $Output_File
+              if grep -qE "$Target_Value" "$Output_File"; then
                  echo "The build value has been marked as Yes"
               else
                 echo "The build value has not been marked as Yes"
               fi 
-              if  awk '/^\[-\] \[x\] Yes/ { found =1; exit } END { exit !found }' "$Template_File"; then
+              if  awk '/^\[-\] \[x\] Yes/ { found =1; exit } END { exit !found }' "$Output_File"; then
                  echo "The build value has been marked as Yes"
               else
                 echo "The build value has not been marked as Yes" 
