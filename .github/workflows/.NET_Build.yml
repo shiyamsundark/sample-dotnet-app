@@ -45,7 +45,7 @@ jobs:
 #           echo "Fortify=$Fortify" >> $GITHUB_OUTPUT
       - uses: actions/checkout@v3 
       
-      - name: PR_Check
+      - name: PR_Check-test
         id: pr_merge
         run: |
               PR_Number=${{ github.event.pull_request.number }}
@@ -56,6 +56,7 @@ jobs:
                  echo "The build value has been marked as Yes"
               else
                 echo "The build value has not been marked as Yes"
+              fi  
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
