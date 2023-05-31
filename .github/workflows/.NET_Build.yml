@@ -36,7 +36,7 @@ jobs:
     needs: if_PR_merged
     runs-on: ubuntu-latest
     steps:
-    - name: Build-test
+    - name: Build
       run: |
            echo "dotnet build-test"
       
