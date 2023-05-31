@@ -45,11 +45,17 @@ jobs:
 #           echo "Fortify=$Fortify" >> $GITHUB_OUTPUT
       - uses: actions/checkout@v3 
       
-      - name: PR_Check_test
+      - name: PR_Check
         id: pr_merge
         run: |
               PR_Number=${{ github.event.pull_request.number }}
-              gh pr view $PR_Number
+              gh pr view $PR_Number >> Buildflag.cfg
+              Templateoutput="Buildflag.cfg"
+              Build_Flag="[x] Yes"
+              if grep -q "$Build_Flag" "$Templateoutput"; then
+                 echo "The build value has been marked as Yes"
+              else
+                echo "The build value has not been marked as Yes"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
