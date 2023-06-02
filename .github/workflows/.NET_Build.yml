@@ -49,10 +49,11 @@ jobs:
         id: pr_merge
         run: | 
               cat $GITHUB_EVENT_PATH
-              checkbox_status=$(grep -E "\- \[x\] Yes" $GITHUB_EVENT_PATH)
-              if [[ -n "$checkbox_status" ]]; then
+              checkbox_checked=$(grep -E "\- \[x\] Yes" $GITHUB_EVENT_PATH)
+              checkbox_unchecked=$(grep -E "\- \[ ] Yes" $GITHUB_EVENT_PATH)
+              if [[ -n "$checkbox_checked" ]]; then
                  echo "==Checkbox checked=="
-              elif [[ -z "$checkbox_status" ]]; then
+              elif [[ -n "$checkbox_unchecked" ]]; then
                  echo "==Checkbox not checked=="
               fi
               
