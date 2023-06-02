@@ -49,6 +49,12 @@ jobs:
         id: pr_merge
         run: | 
               cat $GITHUB_EVENT_PATH
+              checkbox_status=$(grep -E "\- \[x\] Yes" $GITHUB_EVENT_PATH)
+              if [[ -n "$checkbox_status" ]]; then
+                 echo "Checkbox checked"
+              else
+                 echo "Checkbox not checked"
+              fi
               
 #               PR_Number=${{ github.event.pull_request.number }}
 #               gh pr view $PR_Number >> Buildflag.txt
