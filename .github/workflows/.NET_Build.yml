@@ -43,19 +43,26 @@ jobs:
 #           echo "The PR was merged.. Triggering the Build"
 #           echo "Sonar=$Sonar" >> $GITHUB_OUTPUT
 #           echo "Fortify=$Fortify" >> $GITHUB_OUTPUT
+#               cat $GITHUB_EVENT_PATH
+#               checkbox_checked=$(grep -E "\- \[x\] Yes" $GITHUB_EVENT_PATH)
+#               checkbox_unchecked=$(grep -E "\- \[ ] Yes" $GITHUB_EVENT_PATH)
+#               if [[ -n "$checkbox_checked" ]]; then
+#                  echo "==Checkbox checked=="
+#               elif [[ -n "$checkbox_unchecked" ]]; then
+#                  echo "==Checkbox not checked=="
+#               fi
       - uses: actions/checkout@v3 
       
       - name: PR_Check
         id: pr_merge
         run: | 
-              cat $GITHUB_EVENT_PATH
-              checkbox_checked=$(grep -E "\- \[x\] Yes" $GITHUB_EVENT_PATH)
-              checkbox_unchecked=$(grep -E "\- \[ ] Yes" $GITHUB_EVENT_PATH)
-              if [[ -n "$checkbox_checked" ]]; then
-                 echo "==Checkbox checked=="
-              elif [[ -n "$checkbox_unchecked" ]]; then
-                 echo "==Checkbox not checked=="
+              pr_checkbox=$(cat $GITHUB_EVENT_PATH | jq -r '.pull_request.body')
+              if ! echo "$pr_checkbox" | grep -q "\[- \[x\] Yes\]"; then
+                echo "==Checkbox not checked=="
+              else 
+                  echo "==Checkbox checked=="
               fi
+              
               
 #               PR_Number=${{ github.event.pull_request.number }}
 #               gh pr view $PR_Number >> Buildflag.txt
