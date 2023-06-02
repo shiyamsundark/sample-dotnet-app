@@ -53,7 +53,7 @@ jobs:
 #               fi
       - uses: actions/checkout@v3 
       
-      - name: PR_Check
+      - name: PR_Check_test
         if: github.event.pull_request.merged == 'true'
         id: pr_merge
         run: | 
