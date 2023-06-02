@@ -58,7 +58,7 @@ jobs:
         id: pr_merge-test
         run: | 
               pr_checkbox=$(cat $GITHUB_EVENT_PATH | jq -r '.pull_request.body')
-              if ! echo "$pr_checkbox" | grep -q "\[- \[x\] Yes\]"; then
+              if ! echo "$pr_checkbox" | grep -q "\- \[x\] Yes"; then
                 echo "Automated Build and Deploy have not been marked"
               else 
                 echo "Automated Build and Deploy have been marked"
