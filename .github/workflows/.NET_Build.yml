@@ -18,6 +18,7 @@ run-name: Build from ${{ github.ref_name }} with Sonar and Fortify
 jobs:
   if_PR_merged:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == 'true'
     outputs:
       Sonar: ${{ steps.pr_merge.outputs.Sonar }}
       Fortify: ${{ steps.pr_merge.outputs.Fortify }}
@@ -54,7 +55,6 @@ jobs:
       - uses: actions/checkout@v3 
       
       - name: PR_Check_test
-        if: github.event.pull_request.merged == 'true'
         id: pr_merge
         run: | 
               PR_Number=${{ github.event.pull_request.number }}
